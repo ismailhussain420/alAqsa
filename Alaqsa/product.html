@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Search</title>
+  <style> body {
+      font-family: Arial, sans-serif;
+      background-color: #F5F1E7; /* Cream background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      width: 80%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      background-color: #800020; /* Burgundy background */
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      color: #F5F1E7; /* Cream text */
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      position: sticky;
+      top: 0;
+      background-color: #F5F1E7; /* Cream input */
+      color: #800020; /* Burgundy text */
+      border: 2px solid #800020;
+      border-radius: 5px;
+      z-index: 10;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      padding: 10px;
+      margin-bottom: 5px;
+      background-color: #F5F1E7; /* Cream list item */
+      color: #800020; /* Burgundy text */
+      border: 1px solid #800020;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    li:hover {
+      background-color: #D3A9A4; /* Lighter burgundy hover effect */
+    }
+  </style>
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AL AQSA PRODUCT CODES</h1>
+    <input type="text" id="searchInput" placeholder="Search name or code.." />
+    <ul id="results"></ul>
+  </div>
+
+  <script>
+    const products = [
+      { name: "ALO BUKARA", code: "720" },
+      { name: "COOKIES", code: "444" },
+      { name: "MAGGI NOODLES", code: "500" },
+      { name: "DRINKS", code: "445" },
+      { name: "MAGGI SOUP BOX", code: "520" },
+      { name: "SPICES/MASALA", code: "446" },
+      { name: "BREAD", code: "447" },
+      { name: "EGG", code: "900" },
+      { name: "LOOSE MANGO", code: "983" },
+      { name: "KHOI", code: "449" },
+      { name: "WATER CASE", code: "399" },
+      { name: "CROISSANTS", code: "448" },
+      { name: "THANKUNI LEAF", code: "199" },
+      { name: "PEANUT-ALMOND", code: "450" },
+      { name: "SHORPUTI (LB)", code: "555" },
+      { name: "KALONJI", code: "451" },
+      { name: "JAGGERY (GUR)", code: "183" },
+      { name: "KALONJI OIL", code: "452" },
+      { name: "GAGGERY (GUR)", code: "184" },
+      { name: "TUKMA", code: "453" },
+      { name: "FROZEN VEG PACK", code: "185" },
+      { name: "FUSKA", code: "454" },
+      { name: "DAL (LENTILS)", code: "416" },
+      { name: "FRESH TURMERIC", code: "496" },
+      { name: "HONEY", code: "750" },
+      { name: "BAY LEAF", code: "705" },
+      { name: "PAAN", code: "200" },
+      { name: "CINNAMON STICK", code: "716" },
+      { name: "DRY CHILI", code: "719" },
+      { name: "PITHA", code: "312" },
+      { name: "SAGAR CHANACHUR", code: "711" },
+      { name: "CAKE", code: "313" },
+      { name: "BABY DIAPERS", code: "441" },
+      { name: "SAZNA", code: "169" },
+      { name: "SENETARI NEPKIN", code: "442" },
+      { name: "PAT SHAK", code: "171" },
+      { name: "SAUCE/PICKLES", code: "443" },
+      { name: "PUI SHAK", code: "124" },
+      { name: "SPECIAL ORANGE", code: "104" },
+      { name: "DATA SHAK", code: "127" },
+      { name: "MALTA BIG", code: "401" },
+      { name: "SPINACH LOSSE", code: "128" },
+      { name: "MALTA SMALL", code: "310" },
+      { name: "SPINACH", code: "130" },
+      { name: "ORANGE SPECIAL", code: "403" },
+      { name: "POTATO LEAF", code: "112" },
+      { name: "ASIAN PEAR", code: "155" },
+      { name: "PUMPKIN LEAF", code: "122" },
+      { name: "PEAR REG & SPECIAL", code: "156" },
+      { name: "SQUASH LEAF", code: "222" },
+      { name: "KIWI", code: "157" },
+      { name: "STRAWBERRY", code: "136" },
+      { name: "APPLE BABY", code: "11" },
+      { name: "APPLE DELICIOUS", code: "12" },
+      { name: "APPLE FUJI", code: "13" },
+      { name: "APPLE GALA", code: "14" },
+      { name: "DRAGON FRUITS" },
+      { name: "EDDO(MALANGA)" },
+      { name: "EGGPLANT CHINESE", code: "47" },
+      { name: "APPLE GREEN", code: "15" },
+      { name: "AVOCADO", code: "19" },
+      { name: "GARLIC LOOSE", code: "55" },
+      { name: "BANANA FLOWER", code: "22" },
+      { name: "BANANA REGULAR", code: "25" },
+      { name: "GRAPE RED", code: "63" },
+      { name: "GRAPE SPECIAL", code: "65" },
+      { name: "CABBAGE", code: "34" },
+      { name: "CILANTRO", code: "38" },
+      { name: "HONEYDEW MELON", code: "71" },
+      { name: "COCONUT DRY", code: "40" },
+      { name: "LEMON DESI", code: "74" },
+      { name: "LETTUCE", code: "77" },
+      { name: "LIME", code: "78" }
+    ];
+
+    const searchInput = document.getElementById('searchInput');
+    const resultsContainer = document.getElementById('results');
+
+    searchInput.addEventListener('input', function() {
+      const query = searchInput.value.toLowerCase();
+      resultsContainer.innerHTML = '';
+
+      const filteredProducts = products.filter(product => 
+        product.name.toLowerCase().includes(query) || (product.code && product.code.toLowerCase().includes(query))
+      );
+
+      filteredProducts.forEach(product => {
+        const li = document.createElement('li');
+        li.textContent = `${product.name} ${product.code || ''}`;
+        resultsContainer.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>
